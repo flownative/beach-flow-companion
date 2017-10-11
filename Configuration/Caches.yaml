@@ -1,0 +1,6 @@
+Flow_Security_Cryptography_HashService:
+  backend: Flownative\BeachFlowCompanion\Cache\PdoBackend
+  backendOptions:
+    dataSourceName: 'BEACH_DATABASE_DATA_SOURCE_NAME'
+    username: 'BEACH_DATABASE_USERNAME'
+    password: 'BEACH_DATABASE_PASSWORD'
