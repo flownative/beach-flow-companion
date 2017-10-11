@@ -2,16 +2,16 @@
 namespace Flownative\BeachFlowCompanion;
 
 use Flownative\BeachFlowCompanion\Cache\PdoBackend;
-use Neos\Cache\Exception\NoSuchCacheException;
-use Neos\Flow\Cache\CacheManager;
-use Neos\Flow\Command\CacheCommandController;
-use Neos\Flow\Core\Bootstrap;
-use Neos\Flow\Exception;
+use TYPO3\Flow\Cache\CacheManager;
+use TYPO3\Flow\Cache\Exception\NoSuchCacheException;
+use TYPO3\Flow\Command\CacheCommandController;
+use TYPO3\Flow\Core\Bootstrap;
+use TYPO3\Flow\Exception;
 
 /**
  * Class Package
  */
-class Package extends \Neos\Flow\Package\Package
+class Package extends \TYPO3\Flow\Package\Package
 {
     /**
      * @param Bootstrap $bootstrap

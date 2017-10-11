@@ -1,53 +1,34 @@
 <?php
 namespace Flownative\BeachFlowCompanion\Cache;
 
-use Neos\Flow\Exception;
-use Neos\Utility\PdoHelper;
+use TYPO3\Flow\Exception;
+use TYPO3\Flow\Utility\PdoHelper;
+use TYPO3\Flow\Annotations as Flow;
 
 /**
  * Class PdoBackend
  */
-class PdoBackend extends \Neos\Cache\Backend\PdoBackend
+class PdoBackend extends \TYPO3\Flow\Cache\Backend\PdoBackend
 {
     /**
-     * Sets the DSN to use
-     *
-     * @param string $DSN The DSN to use for connecting to the DB
-     * @return void
-     * @api
+     * @Flow\InjectConfiguration(path="persistence.backendOptions", package="TYPO3.Flow")
+     * @var array
      */
-    public function setDataSourceName(string $DSN)
-    {
-        $this->dataSourceName = getenv($DSN);
-    }
-
-    /**
-     * Sets the username to use
-     *
-     * @param string $username The username to use for connecting to the DB
-     * @return void
-     * @api
-     */
-    public function setUsername(string $username)
-    {
-        $this->username = getenv($username);
-    }
-
-    /**
-     * Sets the password to use
-     *
-     * @param string $password The password to use for connecting to the DB
-     * @return void
-     * @api
-     */
-    public function setPassword(string $password)
-    {
-        $this->password = getenv($password);
-    }
+    protected $backendOptions;
 
     /**
      *
-     * @throws \Neos\Cache\Exception
+     */
+    public function initializeObject()
+    {
+        $this->dataSourceName = str_replace('pdo_','', $this->backendOptions['driver']) . ':host=' . $this->backendOptions['host'] . ';dbname=' . $this->backendOptions['dbname'];
+        $this->username = $this->backendOptions['user'];
+        $this->password = $this->backendOptions['password'];
+        parent::initializeObject();
+    }
+
+    /**
+     * @return void
      * @throws Exception
      */
     public function createTableIfNeeded()
@@ -60,4 +41,3 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend
         }
     }
 }
-
