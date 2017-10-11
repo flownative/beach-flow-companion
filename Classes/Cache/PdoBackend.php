@@ -1,17 +1,17 @@
 <?php
 namespace Flownative\BeachFlowCompanion\Cache;
 
-use TYPO3\Flow\Exception;
-use TYPO3\Flow\Utility\PdoHelper;
-use TYPO3\Flow\Annotations as Flow;
+use Neos\Flow\Exception;
+use Neos\Flow\Annotations as Flow;
+use Neos\Utility\PdoHelper;
 
 /**
  * Class PdoBackend
  */
-class PdoBackend extends \TYPO3\Flow\Cache\Backend\PdoBackend
+class PdoBackend extends \Neos\Cache\Backend\PdoBackend
 {
     /**
-     * @Flow\InjectConfiguration(path="persistence.backendOptions", package="TYPO3.Flow")
+     * @Flow\InjectConfiguration(path="persistence.backendOptions", package="Neos.Flow")
      * @var array
      */
     protected $backendOptions;
@@ -30,6 +30,7 @@ class PdoBackend extends \TYPO3\Flow\Cache\Backend\PdoBackend
     /**
      * @return void
      * @throws Exception
+     * @throws \Neos\Cache\Exception
      */
     public function createTableIfNeeded()
     {
