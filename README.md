@@ -21,11 +21,11 @@ is automatically installed via `composer require` when the Docker image of your 
 If you want to try out this companion in your development setup, simply require it yourself:
 
 ```bash
-    $ composer require flownative/beach-flow-companion:1.*
+    $ composer require 'flownative/beach-flow-companion:1.*'
 ```
 
 In case you are using Flow 3.*, you need to include a version with legacy support:
 
 ```bash
-    $ composer require flownative/beach-flow-companion:0.*
+    $ composer require 'flownative/beach-flow-companion:0.*'
 ```
