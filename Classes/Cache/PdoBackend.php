@@ -1,4 +1,5 @@
 <?php
+
 namespace Flownative\BeachFlowCompanion\Cache;
 
 use Neos\Flow\Exception;
@@ -8,8 +9,8 @@ use Neos\Utility\PdoHelper;
 /**
  * Class PdoBackend
  */
-class PdoBackend extends \Neos\Cache\Backend\PdoBackend
-{
+class PdoBackend extends \Neos\Cache\Backend\PdoBackend {
+
     /**
      * @Flow\InjectConfiguration(path="persistence.backendOptions", package="Neos.Flow")
      * @var array
@@ -19,9 +20,14 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend
     /**
      *
      */
-    public function initializeObject()
-    {
-        $this->dataSourceName = str_replace('pdo_','', $this->backendOptions['driver']) . ':host=' . $this->backendOptions['host'] . ';dbname=' . $this->backendOptions['dbname'];
+    public function initializeObject() {
+        $port = '';
+        if (isset($this->backendOptions['port'])) {
+            $port = ';port=' . $this->backendOptions['port'];
+        }
+
+        $this->dataSourceName = str_replace('pdo_', '',
+                $this->backendOptions['driver']) . ':host=' . $this->backendOptions['host'] . ';dbname=' . $this->backendOptions['dbname'] . $port;
         $this->username = $this->backendOptions['user'];
         $this->password = $this->backendOptions['password'];
         parent::initializeObject();
@@ -32,13 +38,14 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend
      * @throws Exception
      * @throws \Neos\Cache\Exception
      */
-    public function createTableIfNeeded()
-    {
+    public function createTableIfNeeded() {
         $this->connect();
         try {
-            PdoHelper::importSql($this->databaseHandle, $this->pdoDriver, 'resource://Flownative.BeachFlowCompanion/Private/CreateCacheTables.sql');
+            PdoHelper::importSql($this->databaseHandle, $this->pdoDriver,
+                'resource://Flownative.BeachFlowCompanion/Private/CreateCacheTables.sql');
         } catch (\PDOException $exception) {
-            throw new Exception('Could not create cache tables with DSN "' . $this->dataSourceName . '". PDO error: ' . $exception->getMessage(), 1259576985);
+            throw new Exception('Could not create cache tables with DSN "' . $this->dataSourceName . '". PDO error: ' . $exception->getMessage(),
+                1259576985);
         }
     }
 }
