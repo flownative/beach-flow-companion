@@ -9,8 +9,8 @@ use Neos\Utility\PdoHelper;
 /**
  * Class PdoBackend
  */
-class PdoBackend extends \Neos\Cache\Backend\PdoBackend {
-
+class PdoBackend extends \Neos\Cache\Backend\PdoBackend
+{
     /**
      * @Flow\InjectConfiguration(path="persistence.backendOptions", package="Neos.Flow")
      * @var array
@@ -20,14 +20,20 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend {
     /**
      *
      */
-    public function initializeObject() {
+    public function initializeObject()
+    {
         $port = '';
         if (isset($this->backendOptions['port'])) {
             $port = ';port=' . $this->backendOptions['port'];
         }
 
-        $this->dataSourceName = str_replace('pdo_', '',
-                $this->backendOptions['driver']) . ':host=' . $this->backendOptions['host'] . ';dbname=' . $this->backendOptions['dbname'] . $port;
+        $this->dataSourceName = sprintf(
+            '%s:host=%s;dbname=%s%s',
+            str_replace('pdo_', '', $this->backendOptions['driver']),
+            $this->backendOptions['host'],
+            $this->backendOptions['dbname'],
+            $port
+        );
         $this->username = $this->backendOptions['user'];
         $this->password = $this->backendOptions['password'];
         parent::initializeObject();
@@ -38,7 +44,8 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend {
      * @throws Exception
      * @throws \Neos\Cache\Exception
      */
-    public function createTableIfNeeded() {
+    public function createTableIfNeeded()
+    {
         $this->connect();
         try {
             PdoHelper::importSql($this->databaseHandle, $this->pdoDriver,
