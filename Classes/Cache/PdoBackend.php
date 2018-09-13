@@ -1,4 +1,5 @@
 <?php
+
 namespace Flownative\BeachFlowCompanion\Cache;
 
 use Neos\Flow\Exception;
@@ -21,7 +22,18 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend
      */
     public function initializeObject()
     {
-        $this->dataSourceName = str_replace('pdo_','', $this->backendOptions['driver']) . ':host=' . $this->backendOptions['host'] . ';dbname=' . $this->backendOptions['dbname'];
+        $port = '';
+        if (isset($this->backendOptions['port'])) {
+            $port = ';port=' . $this->backendOptions['port'];
+        }
+
+        $this->dataSourceName = sprintf(
+            '%s:host=%s;dbname=%s%s',
+            str_replace('pdo_', '', $this->backendOptions['driver']),
+            $this->backendOptions['host'],
+            $this->backendOptions['dbname'],
+            $port
+        );
         $this->username = $this->backendOptions['user'];
         $this->password = $this->backendOptions['password'];
         parent::initializeObject();
@@ -36,9 +48,11 @@ class PdoBackend extends \Neos\Cache\Backend\PdoBackend
     {
         $this->connect();
         try {
-            PdoHelper::importSql($this->databaseHandle, $this->pdoDriver, 'resource://Flownative.BeachFlowCompanion/Private/CreateCacheTables.sql');
+            PdoHelper::importSql($this->databaseHandle, $this->pdoDriver,
+                'resource://Flownative.BeachFlowCompanion/Private/CreateCacheTables.sql');
         } catch (\PDOException $exception) {
-            throw new Exception('Could not create cache tables with DSN "' . $this->dataSourceName . '". PDO error: ' . $exception->getMessage(), 1259576985);
+            throw new Exception('Could not create cache tables with DSN "' . $this->dataSourceName . '". PDO error: ' . $exception->getMessage(),
+                1259576985);
         }
     }
 }
