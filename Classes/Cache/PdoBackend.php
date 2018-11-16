@@ -1,5 +1,4 @@
 <?php
-
 namespace Flownative\BeachFlowCompanion\Cache;
 
 use Neos\Flow\Exception;
