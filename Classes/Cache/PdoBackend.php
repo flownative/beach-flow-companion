@@ -2,7 +2,6 @@
 namespace Flownative\BeachFlowCompanion\Cache;
 
 use Neos\Flow\Exception;
-use Neos\Flow\Annotations as Flow;
 use Neos\Utility\PdoHelper;
 
 /**
@@ -11,31 +10,24 @@ use Neos\Utility\PdoHelper;
 class PdoBackend extends \Neos\Cache\Backend\PdoBackend
 {
     /**
-     * @Flow\InjectConfiguration(path="persistence.backendOptions", package="Neos.Flow")
-     * @var array
+     * @param array $backendOptions
      */
-    protected $backendOptions;
-
-    /**
-     *
-     */
-    public function initializeObject()
+    public function injectBackendOptions(array $backendOptions)
     {
         $port = '';
-        if (isset($this->backendOptions['port'])) {
-            $port = ';port=' . $this->backendOptions['port'];
+        if (isset($backendOptions['port'])) {
+            $port = ';port=' . $backendOptions['port'];
         }
 
         $this->dataSourceName = sprintf(
             '%s:host=%s;dbname=%s%s',
-            str_replace('pdo_', '', $this->backendOptions['driver']),
-            $this->backendOptions['host'],
-            $this->backendOptions['dbname'],
+            str_replace('pdo_', '', $backendOptions['driver']),
+            $backendOptions['host'],
+            $backendOptions['dbname'],
             $port
         );
-        $this->username = $this->backendOptions['user'];
-        $this->password = $this->backendOptions['password'];
-        parent::initializeObject();
+        $this->username = $backendOptions['user'];
+        $this->password = $backendOptions['password'];
     }
 
     /**

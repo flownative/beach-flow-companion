@@ -1,0 +1,4 @@
+Flownative\BeachFlowCompanion\Cache\PdoBackend:
+  properties:
+    backendOptions:
+      setting: Neos.Flow.persistence.backendOptions
