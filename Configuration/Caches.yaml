@@ -1,5 +1,8 @@
 Flow_Security_Cryptography_HashService:
-  backend: Flownative\BeachFlowCompanion\Cache\PdoBackend
+  backend: Neos\Cache\Backend\PdoBackend
   backendOptions:
+    dataSourceName: 'mysql:host=%env:BEACH_DATABASE_HOST%;dbname=%env:BEACH_DATABASE_NAME%'
+    username: '%env:BEACH_DATABASE_USERNAME%'
+    password: '%env:BEACH_DATABASE_PASSWORD%'
     defaultLifetime: 0
   persistent: true
