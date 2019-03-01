@@ -1,0 +1,8 @@
+Neos:
+  Flow:
+    persistence:
+      doctrine:
+        migrations:
+          ignoredTables:
+            'cache': true
+            'tags': true
