@@ -52,7 +52,6 @@ Flow_Security_Cryptography_HashService:
     username: '%env:BEACH_DATABASE_USERNAME%'
     password: '%env:BEACH_DATABASE_PASSWORD%'
     defaultLifetime: 0
-  persistent: true
 ```
 
 **Warning**
