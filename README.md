@@ -56,7 +56,11 @@ Flow_Security_Cryptography_HashService:
 
 **Warning**
 
-The `Flownative\BeachFlowCompanion\Cache\PdoBackend` must only be used for caches
-marked as `persistent`. If used for non-persistent caches, the lack of injection
-for compile-time commands will break any such command, like, ironically,
+It is possible to use the PdoBackend from this package without configuring the DB
+connection directly. It does then fall back to the Doctrine connection configuration
+used for the persistence layer.
+
+If doing so, the `Flownative\BeachFlowCompanion\Cache\PdoBackend` must only be used
+for caches marked as `persistent`. If used for non-persistent caches, the lack of
+injection for compile-time commands will break any such command, like, ironically,
 `flow:cache:flush`.
