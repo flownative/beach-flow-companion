@@ -1,5 +1,5 @@
 Flow_Security_Cryptography_HashService:
-  backend: Neos\Cache\Backend\PdoBackend
+  backend: Flownative\BeachFlowCompanion\Cache\PdoBackend
   backendOptions:
     dataSourceName: 'mysql:host=%env:BEACH_DATABASE_HOST%;dbname=%env:BEACH_DATABASE_NAME%'
     username: '%env:BEACH_DATABASE_USERNAME%'
