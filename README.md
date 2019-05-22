@@ -18,8 +18,7 @@ This package is easily be replaced by according configuration in Flow 5.2 and up
 
 You should configure your caches for use of the PDO cache backend (like shown below)
 to have the encryption key stored in the database. Or any other cache that is not
-flushed upon deployment. Our [guide on caching with Redis](https://www.flownative.com/en/documentation/guides/beach/how-to-use-redis-for-caching-for-neos-and-flow.html)
-has more details on this.
+flushed upon deployment.
 
 To have the caches set up as needed,  call the `flow:cache:setupall` command in your
 deployment scripts, e.g. after `flow:cache:warmup`.
