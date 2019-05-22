@@ -1,7 +1,7 @@
 <?php
 namespace Flownative\BeachFlowCompanion;
 
-use Flownative\BeachFlowCompanion\Cache\PdoBackend;
+use Flownative\BeachFlowCompanion\Cache\PdoBackend as CompanionPdobackend;
 use Neos\Cache\Exception\NoSuchCacheException;
 use Neos\Flow\Cache\CacheManager;
 use Neos\Flow\Command\CacheCommandController;
@@ -26,7 +26,7 @@ class Package extends \Neos\Flow\Package\Package
                 try {
                     $cacheManager = $bootstrap->getObjectManager()->get(CacheManager::class);
                     foreach ($cacheManager->getCacheConfigurations() as $cacheIdentifier => $cacheConfiguration) {
-                       if (isset($cacheConfiguration['backend']) && $cacheConfiguration['backend'] === PdoBackend::class) {
+                       if (isset($cacheConfiguration['backend']) && $cacheConfiguration['backend'] === CompanionPdobackend::class) {
                            try {
                                $cacheManager->getCache($cacheIdentifier)->getBackend()->createTableIfNeeded();
                            } catch (NoSuchCacheException $e) {
