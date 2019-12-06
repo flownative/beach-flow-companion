@@ -47,7 +47,7 @@ the caches configuration as needed, this is the default:
 Flow_Security_Cryptography_HashService:
   backend: Neos\Cache\Backend\PdoBackend
   backendOptions:
-    dataSourceName: 'mysql:host=%env:BEACH_DATABASE_HOST%;dbname=%env:BEACH_DATABASE_NAME%'
+    dataSourceName: 'mysql:host=%env:BEACH_DATABASE_HOST%;dbname=%env:BEACH_DATABASE_NAME%;charset=utf8mb4'
     username: '%env:BEACH_DATABASE_USERNAME%'
     password: '%env:BEACH_DATABASE_PASSWORD%'
     defaultLifetime: 0
